@@ -43,10 +43,12 @@ jobs:
         if: matrix.python-version == '3.12'
         run: cat flake8_output.txt pytest_output.txt > raw_log.txt
 
-      - name: Install agent dependencies
+            - name: Install agent dependencies
         if: matrix.python-version == '3.12'
         run: pip install -r src/requirements.txt
-            - name: Debug check key presence
+
+      - name: Debug check key presence
+        if: matrix.python-version == '3.12'
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
@@ -55,16 +57,10 @@ jobs:
           else
             echo "GOOGLE_API_KEY is set, length: ${#GOOGLE_API_KEY}"
           fi
+
       - name: Run log analysis agent
         if: matrix.python-version == '3.12'
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: python src/agent.py raw_log.txt
-
-      - name: Upload report
-        if: matrix.python-version == '3.12'
-        uses: actions/upload-artifact@v4
-        with:
-          name: anomaly-report
-          path: report.md
       
