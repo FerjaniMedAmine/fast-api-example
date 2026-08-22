@@ -50,3 +50,7 @@ python-jose==3.5.0
 email-validator==2.3.0
 python-multipart==0.0.31
 aiosqlite==0.22.1
+langchain
+langchain-google-genai
+langgraph
+python-dotenv
